@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5b4e1917402e865b66efd08a38811bb3",
+    "revision": "f2035a5dd23662cd15b66042b9c9b779",
     "url": "/hwitter/index.html"
   },
   {
-    "revision": "7f5a4fb8b06ce9703021",
-    "url": "/hwitter/static/css/main.f3cd943b.chunk.css"
+    "revision": "63bee472de8bb1e65f58",
+    "url": "/hwitter/static/css/main.9874825c.chunk.css"
   },
   {
     "revision": "5a6a2705c9293d132871",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/hwitter/static/js/2.02eee64a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7f5a4fb8b06ce9703021",
-    "url": "/hwitter/static/js/main.0cd3fe0d.chunk.js"
+    "revision": "63bee472de8bb1e65f58",
+    "url": "/hwitter/static/js/main.f9bd1128.chunk.js"
   },
   {
     "revision": "e88349919bfb1b5f4204",

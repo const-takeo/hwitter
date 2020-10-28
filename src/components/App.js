@@ -1,13 +1,41 @@
-import React, { useState } from 'react';
-import AppRouter from './Router';
-import {authService} from "../database/fBase"
+import React, { useEffect, useState } from "react";
+import AppRouter from "./Router";
+import { authService } from "../database/fBase";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+  const [init, setInit] = useState(false);
+  const [userObj, setUserObj] = useState(null);
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        setUserObj({
+          displayName:user.displayName,
+          uid:user.uid,
+          updateProfile:(args) => user.updateProfile(args)
+        });
+      } else {
+        setUserObj(null);
+      }
+      setInit(true);
+    });
+  }, []);
+  //
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    setUserObj({
+      displayName:user.displayName,
+      uid:user.uid,
+      updateProfile:(args) => user.updateProfile(args)
+    });
+  }
+  //
   return (
     <>
-      <AppRouter isLoggedIn={isLoggedIn}/>
-      <footer>&copy; Hwitter{new Date().getFullYear}</footer>
+      {init ? (
+        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} refreshUser={refreshUser}/>
+      ) : (
+        "初期化中..."
+      )}
     </>
   );
 }

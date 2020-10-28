@@ -1,33 +1,38 @@
 import React, { useState } from "react";
+import AuthForm from "../components/AuthForm";
+import HalIcon from "../components/HAL";
+import { authService, firebaseInstance } from "../database/fBase";
 
 const Auth = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const onChange = e => {
-        const {target:{name, value}} = e;
-        if(name === "email") {
-            setEmail(value);
-        } else if(name === "password") {
-            setPassword(value);
-        }
+  const [newAccount, setNewAccount] = useState(false);
+  const toggleAccount = () => setNewAccount((prev) => !prev);
+  //
+  const onSocialClick = async (e) => {
+    const {
+      target: { name },
+    } = e;
+    let provider;
+    if (name === "google") {
+      provider = new firebaseInstance.auth.GoogleAuthProvider();
     }
-    const onSubmit = e => {
-        e.preventDefault();
-    }
-    return (
-        <>
-            <div>
-                <form onSubmit={onSubmit}>
-                    <input type="email" placeholder="email" required value={email} onChange={onChange} name="email"/>
-                    <input tyoe="password" placeholder="password"required value={password} onChange={onChange} name="password"/>
-                    <input type="submit" value="Sign In" />
-                </form>
-            </div>
-            <div>
-                <button>Continue with Google</button>
-            </div>
-        </>
-    );
-}
+    await authService.signInWithPopup(provider);
+  };
+  return (
+    <div className="authContainer">
+      <div className="halIcon">
+        <HalIcon />
+      </div>
+      <AuthForm newAccount={newAccount}/>
+      <div className="authBtns">
+        <button onClick={onSocialClick} className="authSwitch" name="google" className="authBtn">
+          Googleログイン
+        </button>
+        <button onClick={toggleAccount} className="authBtn">
+          {newAccount ? "入場" : "アカウント生成"}
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Auth;
